@@ -1,4 +1,4 @@
-import { SignUpButton } from "@clerk/nextjs";
+import { SignUpButton, SignedOut } from "@clerk/nextjs";
 
 const Hero = () => {
   return (
@@ -15,11 +15,13 @@ const Hero = () => {
           messaging powered by AI-enhanced features.
         </p>
         <div className="flex gap-4 justify-center">
-          <SignUpButton>
-            <button className="bg-indigo-600 cursor-pointer hover:bg-transparent hover:border hover:border-indigo-700 active:bg-indigo-700 px-8 py-4 rounded-lg font-medium transition-colors">
-              SignUp
-            </button>
-          </SignUpButton>
+          <SignedOut>
+            <SignUpButton>
+              <button className="bg-indigo-600 cursor-pointer hover:bg-transparent hover:border hover:border-indigo-700 active:bg-indigo-700 px-8 py-4 rounded-lg font-medium transition-colors">
+                SignUp
+              </button>
+            </SignUpButton>
+          </SignedOut>
           <button className="border border-slate-600 active:scale-105 cursor-pointer hover:border-indigo-500 px-8 py-4 rounded-lg font-medium transition-colors">
             Learn More
           </button>
