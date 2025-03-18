@@ -61,7 +61,7 @@ const Navbar = () => {
                 About us
               </Link>
             </li>
-            <li>
+            <li className="flex justify-center items-center">
               <SignedOut>
                 <SignUpButton>
                   <button className="py-2 px-5 rounded cursor-pointer bg-gray-900 text-gray-100 active:scale-105 hover:text-gray-400">
