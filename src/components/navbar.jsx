@@ -39,27 +39,47 @@ const Navbar = () => {
           <ul className="flex items-center space-x-4">
             <li>
               <Link
-                className="hover:scale-105 font-semibold text-gray-200 active:text-gray-300"
+                className="hover:scale-105 font-semibold active:text-gray-300"
                 href={"/"}
               >
                 Home
               </Link>
             </li>
             <li>
-              <Link
-                className="hover:scale-105 active:text-gray-300"
-                href={"/contact"}
-              >
-                Contact us
-              </Link>
+              <SignedIn>
+                <Link
+                  className="hover:scale-105 active:text-gray-300"
+                  href={"/forum"}
+                >
+                  Forums
+                </Link>
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  className="hover:scale-105 active:text-gray-300"
+                  href={"/contact"}
+                >
+                  Contact us
+                </Link>
+              </SignedOut>
             </li>
             <li>
-              <Link
-                className="hover:scale-105 active:text-gray-300"
-                href={"/about"}
-              >
-                About us
-              </Link>
+              <SignedIn>
+                <Link
+                  className="hover:scale-105 active:text-gray-300"
+                  href={"/chat"}
+                >
+                  Chat
+                </Link>
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  className="hover:scale-105 active:text-gray-300"
+                  href={"/about"}
+                >
+                  About us
+                </Link>
+              </SignedOut>
             </li>
             <li className="flex justify-center items-center">
               <SignedOut>

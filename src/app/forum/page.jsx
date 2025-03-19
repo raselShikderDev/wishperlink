@@ -3,14 +3,14 @@ import Forumcards from "@/components/loggedUser/froumCards";
 
 const Forum = () => {
   return (
-    <div className="container bg-neutral-50 mx-auto px-6 py-12">
-      <div className="mb-16">
+    <div className="">
+      <div className="bg-gradient-to-t from-slate-900 via-slate-950 to-indigo-950">
         <ForumHero />
       </div>
-      <h2 className="text-2xl text-center font-semibold mb-6">
-        Discussion Forum
-      </h2>
-      <Forumcards />
+      <div className="text-white bg-gradient-to-b from-slate-900 to-slate-950">
+        <h2 className="text-2xl md:text-3xl text-center font-semibold">Discussion Forums</h2>
+        <Forumcards />
+      </div>
     </div>
   );
 };

@@ -1,16 +1,18 @@
 "use client";
+
+import ChatForum from "@/components/loggedUser/chatForum";
 import { useParams } from "next/navigation";
 
-export default function ForumPage() {
-    const {slug} = useParams()
-    console.log(`slug: ${slug}`)
-    if (!slug) {
-        return <div>Loading...</div>;  
-      }
+const ForumSlugPage = () => {
+  const {slug} = useParams()
   return (
-    <div>
-      <h1>MY post is:</h1>
-      <p>Params: {slug}</p>
-    </div>
+     <div className="flex justify-center items-center min-h-screen bg-gray-950 pt-16">
+          <div className="w-[600px] min-h-[500px] bg-white rounded-lg shadow-lg flex flex-col overflow-hidden">
+          <ChatForum slug={slug}/>
+          </div>
+        </div>
+    
   );
-}
+};
+
+export default ForumSlugPage;

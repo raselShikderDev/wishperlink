@@ -1,5 +1,7 @@
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZW5qb3llZC1iYXJuYWNsZS0zOC5jbGVyay5hY2NvdW50cy5kZXYk
 CLERK_SECRET_KEY=sk_test_xkw8VxWJvcY3qFj6PDIUQ460CV429m0xowUHrzcJT5
+STREME_API_KEY="fh4wtyakqs37"
+STREME_API_KEY_API_SECRET="sx2r4ax46fg2dkb6wgr9p6zjx24n55yaks3h9jzkda3dzfct3678auffwa7nxj74"
 
 # Logged in User & password
 # vahon31333@isorax.com

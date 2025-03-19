@@ -121,3 +121,138 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* .chat-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.chat-container {
+  width: 600px;
+  height: 600px; 
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+} */
+
+
+/* .chat-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw; 
+}
+
+.chat-container {
+  width: 600px;
+  height: 500px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+} */
+
+
+/* .chat-page-container { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  width: 100vw;
+  background-color: #030712;
+}
+
+.chat-container {
+  width: 600px;
+  min-height: 500px; 
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* .chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 500px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.chat-header {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.chat-input {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 10;
+  border-top: 1px solid #ddd;
+} */
+
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 550px;
+  background: white; /* Dark background */
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  color: #f1f1f1; /* Light text */
+}
+
+.chat-header {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background: white; /* Slightly lighter dark background */
+  z-index: 10;
+  border-bottom: 1px solid #444;
+  color: #fff;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: white; /* Match chat container */
+}
+
+.chat-input {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background: white; /* Match header */
+  z-index: 10;
+  border-top: 1px solid #444;
+  color: #fff;
+}
+
+
+
