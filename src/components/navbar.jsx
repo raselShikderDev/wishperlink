@@ -1,6 +1,12 @@
 "use client";
 
-import { SignedIn, SignedOut, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -31,7 +37,9 @@ const Navbar = () => {
               className="text-2xl sm:text-4xl hover:scale-105 active:text-white text-gray-200"
               href="/"
             >
-              ChatWave
+              <span className="bg-gradient-to-r from-indigo-300 to-blue-600 bg-clip-text text-transparent">
+                <span className="font-semibold">Chat</span>Wave
+              </span>
             </Link>
           </h1>
         </div>
@@ -83,11 +91,11 @@ const Navbar = () => {
             </li>
             <li className="flex justify-center items-center">
               <SignedOut>
-                <SignUpButton>
+                <SignInButton>
                   <button className="py-2 px-5 rounded cursor-pointer bg-gray-900 text-gray-100 active:scale-105 hover:text-gray-400">
-                    SignUp
+                    SignIn
                   </button>
-                </SignUpButton>
+                </SignInButton>
               </SignedOut>
               <SignedIn>
                 <UserButton />

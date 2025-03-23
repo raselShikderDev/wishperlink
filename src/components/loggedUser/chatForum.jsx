@@ -12,19 +12,41 @@ import {
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css"; // ✅ Import CSS for proper styling
 
-const apiKey = "dz5f4d5kzrue";
-const userId = "user_2uSSVpXNrYbSeMgFroVyfgcpOTs";
-const userName = "late";
-const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl8ydVNTVnBYTnJZYlNlTWdGcm9WeWZnY3BPVHMifQ.xiuvp_vQPijSZveDZdcGfzZjRkn-_hOLlX8phdZXorA"
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibGF0ZS1zaGFwZS0wIiwiZXhwIjoxNzQyMzk2MTAzfQ.pYi3toef3syqJxho7h6Uq8bk0xVutmpMUsc28JkJKc8";
+// const apiKey = "dz5f4d5kzrue";
+// const userId = "lucky-union-6";
+// const userName = "lucky";
+// const userToken =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibHVja3ktdW5pb24tNiIsImV4cCI6MTc0MjUxNDA1Nn0.iRP7VJb3vaPyBJvcEf0pKStBG3UbUxLIGOwTZIeJ8rg";
 
-const user = {
-  id: userId,
-  name: userName,
-  image: `https://getstream.io/random_png/?name=${userName}`,
-};
+// const user = {
+//   id: userId,
+//   name: userName,
+//   image: `https://getstream.io/random_png/?name=${userName}`,
+// };
 
-const ChatForum = ({slug}) => {
+function capitalize(slug) {
+  if (!slug || typeof slug !== "string") return ""; 
+
+  return slug
+    .trim()
+    .split("-")
+    .filter(word => word.length > 0) // Remove empty words caused by double hyphens
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+const ChatForum = ({ slug, clerkUser }) => {
+  const apiKey = process.env.STREAM_API_KEY;
+  const userId = clerkUser.id;
+  const userName = clerkUser.name;
+  const userToken = clerkUser.token;
+
+  const user = {
+    id: userId,
+    name: userName,
+    image: `https://getstream.io/random_png/?name=${userName}`,
+  };
+
   const [channel, setChannel] = useState(null);
   const client = useCreateChatClient({
     apiKey,
@@ -34,10 +56,10 @@ const ChatForum = ({slug}) => {
 
   useEffect(() => {
     if (!client) return;
-
+    
     const newChannel = client.channel("messaging", slug, {
       image: "https://getstream.io/random_png/?name=react",
-      name: `${slug?.split("-")[0]} ${slug?.split("-")[1]}`,
+      name: capitalize(slug),
       members: [userId],
     });
 

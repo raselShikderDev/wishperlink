@@ -1,10 +1,25 @@
-import { SignUpButton, SignedOut } from "@clerk/nextjs";
+// "use client";
+import { SignUpButton, SignedOut, useAuth } from "@clerk/nextjs";
+// import { useEffect, useState } from "react";
 
 const Hero = () => {
+  // const [token, setToken] = useState();
+  // const { getToken, isSignedIn } = useAuth();
+  // useEffect(() => {
+  //   const fetchToken = async () => {
+  //     if (isSignedIn) {
+  //       const userToken = await getToken();
+  //       setToken(userToken);
+  //     }
+  //   };
+  //   fetchToken();
+  // }, [isSignedIn, getToken]);
+  // console.log("Token: ", token);
+
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <h1 className="text-5xl md:mt-16 md:text-6xl font-bold mb-6">
           Connect Seamlessly with
           <span className="bg-gradient-to-r from-indigo-400 to-blue-500 bg-clip-text text-transparent">
             ChatWave

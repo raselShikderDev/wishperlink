@@ -224,7 +224,7 @@
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  color: #f1f1f1; /* Light text */
+  /* color: #f1f1f1; Light text */
 }
 
 .chat-header {
@@ -234,7 +234,7 @@
   background: white; /* Slightly lighter dark background */
   z-index: 10;
   border-bottom: 1px solid #444;
-  color: #fff;
+  /* color: #fff; */
 }
 
 .chat-messages {
