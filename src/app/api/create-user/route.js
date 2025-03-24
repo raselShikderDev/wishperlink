@@ -6,11 +6,13 @@ const apiKey = process.env.STREAM_API_KEY;
 const apiSecret = process.env.STREAM_API_SECRET;
 console.log("cheak is it working or not");
 
-export async function GET() {
-  return NextResponse.json({
-    message: "API is working! Use POST for actual requests.",
-  });
-}
+
+// export async function GET() {
+//   return NextResponse.json({
+//     message: "GET API Method is working!",
+//   });
+// }
+
 
 export async function POST(request) {
   function capitalize(slug) {
@@ -44,6 +46,9 @@ export async function POST(request) {
           message: "Envoirnment variables not set yet",
         });
       }
+      console.log("[DEBUG] STREAM_API_KEY:", apiKey);
+      console.log("[DEBUG] STREAM_API_SECRET:", apiSecret);
+
       client = new StreamChat(apiKey, apiSecret);
       if (!client) {
         return NextResponse.json({ message: "Creating client faild" });
@@ -112,7 +117,8 @@ export async function POST(request) {
     // }
 
     try {
-      const metadataResponse = await fetch(
+      console.log("[DEBUG] Updating Clerk metadata...");
+      const response = await fetch(
         `https://api.clerk.dev/v1/users/${user}/metadata`,
         {
           method: "PATCH",
@@ -121,20 +127,16 @@ export async function POST(request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            public_metadata: { token: token, updated_at: Date.now() },
+            public_metadata: { token: token },
           }),
         }
       );
 
-      if (!metadataResponse.ok) {
-        console.error(
-          "[ERROR] Clerk metadata update failed:",
-          await metadataResponse.text()
-        );
-        return NextResponse.json(
-          { message: "Failed to update metadata" },
-          { status: metadataResponse.status }
-        );
+      const data = await response.json();
+      console.log("[DEBUG] Clerk response in backend:", data);
+
+      if (!response.ok) {
+        throw new Error(`[ERROR] Clerk update failed: ${data.message}`);
       }
 
       console.log("[DEBUG] Clerk metadata updated successfully");
@@ -176,7 +178,7 @@ export async function POST(request) {
         }
       );
     } catch (error) {
-      console.error("[ERROR]", error); // ADD THIS
+      console.error("[ERROR]", error);
       return NextResponse.json({
         message: "Creating new channel is faild",
         error: error.message,

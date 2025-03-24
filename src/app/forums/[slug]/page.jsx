@@ -3,9 +3,13 @@ import ForumClient from "@/components/loggedUser/ForumClient";
 
 const ForumSlugPage = async () => {
   const user = await currentUser();
-//  console.log("user: ", user)
+  //  console.log("user: ", user)
+  console.log("User object:", user);
+  console.log("Public Metadata:", user?.publicMetadata);
+  console.log("Token from metadata in frontend:", user?.publicMetadata?.token);
+
   if (!user && !user.publicMetadata?.token) {
-    console.error("User token is missing:", user?.publicMetadata)
+    console.error("User token is missing:", user?.publicMetadata);
     return <div>Please log in to access the forum.</div>;
   }
 
@@ -21,13 +25,6 @@ const ForumSlugPage = async () => {
 };
 
 export default ForumSlugPage;
-
-
-
-
-
-
-
 
 // "use client";
 

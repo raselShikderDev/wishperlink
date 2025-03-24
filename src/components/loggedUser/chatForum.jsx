@@ -10,19 +10,15 @@ import {
   Thread,
   Window,
 } from "stream-chat-react";
-import "stream-chat-react/dist/css/v2/index.css"; // ✅ Import CSS for proper styling
+import "stream-chat-react/dist/css/v2/index.css"; 
 
-// const apiKey = "dz5f4d5kzrue";
-// const userId = "lucky-union-6";
-// const userName = "lucky";
-// const userToken =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibHVja3ktdW5pb24tNiIsImV4cCI6MTc0MjUxNDA1Nn0.iRP7VJb3vaPyBJvcEf0pKStBG3UbUxLIGOwTZIeJ8rg";
 
-// const user = {
-//   id: userId,
-//   name: userName,
-//   image: `https://getstream.io/random_png/?name=${userName}`,
-// };
+// const apiKey = 'dz5f4d5kzrue';
+// const userId = 'polished-morning-4';
+// const userName = 'polished';
+// const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoicG9saXNoZWQtbW9ybmluZy00IiwiZXhwIjoxNzQyODI5NDc5fQ.3FYadIhTf7p_5AccZ-_y5cp7LTtK7kTKfBEIO9DLdC8';
+
+
 
 function capitalize(slug) {
   if (!slug || typeof slug !== "string") return ""; 
