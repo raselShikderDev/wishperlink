@@ -1,18 +1,18 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { StreamChat } from "stream-chat";
+// import stream from "getstream";
+// import { useState } from "react";
 
 const apiKey = process.env.STREAM_API_KEY;
 const apiSecret = process.env.STREAM_API_SECRET;
 console.log("cheak is it working or not");
-
 
 // export async function GET() {
 //   return NextResponse.json({
 //     message: "GET API Method is working!",
 //   });
 // }
-
 
 export async function POST(request) {
   function capitalize(slug) {
@@ -38,47 +38,48 @@ export async function POST(request) {
     console.log("[DEBUG] API Secret:", apiSecret);
     console.log("[DEBUG] User :", user);
 
-    // Creating client
-    let client;
-    try {
-      if (!apiKey || !apiSecret) {
-        return NextResponse.json({
-          message: "Envoirnment variables not set yet",
-        });
-      }
-      console.log("[DEBUG] STREAM_API_KEY:", apiKey);
-      console.log("[DEBUG] STREAM_API_SECRET:", apiSecret);
+    // // another modern way by metadata
+    // // Creating client
+    // let client;
+    // try {
+    //   if (!apiKey || !apiSecret) {
+    //     return NextResponse.json({
+    //       message: "Envoirnment variables not set yet",
+    //     });
+    //   }
+    //   console.log("[DEBUG] STREAM_API_KEY:", apiKey);
+    //   console.log("[DEBUG] STREAM_API_SECRET:", apiSecret);
 
-      client = new StreamChat(apiKey, apiSecret);
-      if (!client) {
-        return NextResponse.json({ message: "Creating client faild" });
-      }
-      console.log("[DEBUG] Client Created");
-    } catch (error) {
-      console.error("[ERROR]", error); // ADD THIS
-      return NextResponse.json({
-        message: "Creating clinet faild",
-        error: error.message,
-      });
-    }
+    //   client = new StreamChat(apiKey, apiSecret);
+    //   if (!client) {
+    //     return NextResponse.json({ message: "Creating client faild" });
+    //   }
+    //   console.log("[DEBUG] Client Created");
+    // } catch (error) {
+    //   console.error("[ERROR]", error);
+    //   return NextResponse.json({
+    //     message: "Creating clinet faild",
+    //     error: error.message,
+    //   });
+    // }
 
-    // Creating token
-    let token;
-    try {
-      console.log("[DEBUG] Creating token for backend...");
-      token = client.createToken(user);
-      console.log("[DEBUG] Token backend:", token);
-    } catch (error) {
-      console.error("[ERROR] Creating token failed:", error);
-      return NextResponse.json({
-        message: "Creating token failed",
-        error: error.message,
-      });
-    }
+    // // Creating token
+    // let token;
+    // try {
+    //   console.log("[DEBUG] Creating token for backend...");
+    //   token = client.createToken(user);
+    //   console.log("[DEBUG] Token backend:", token);
+    // } catch (error) {
+    //   console.error("[ERROR] Creating token failed:", error);
+    //   return NextResponse.json({
+    //     message: "Creating token failed",
+    //     error: error.message,
+    //   });
+    // }
 
-    console.log("[DEBUG] token outside setting metadata try cath : ", token);
-    console.log("[DEBUG] user outside setting metadata try cath : ", user);
-    // setting token in metadata publicly
+    // console.log("[DEBUG] token outside setting metadata try cath : ", token);
+    // console.log("[DEBUG] user outside setting metadata try cath : ", user);
+    // // setting token in metadata publicly
     // try {
     //   console.log("[DEBUG] connecting clinet with user...");
     //   await client.connectUser({ id: user }, token);
@@ -116,30 +117,80 @@ export async function POST(request) {
     //   });
     // }
 
+    //  // modern way of updating using metadata
+    // try {
+    //   console.log("[DEBUG] Updating Clerk metadata...");
+    //   const response = await fetch(
+    //     `https://api.clerk.dev/v1/users/${user}/metadata`,
+    //     {
+    //       method: "PATCH",
+    //       headers: {
+    //         Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         public_metadata: { token: token },
+    //       }),
+    //     }
+    //   );
+
+    //   const data = await response.json();
+    //   console.log("[DEBUG] Clerk response in backend:", data);
+
+    //   if (!response.ok) {
+    //     throw new Error(`[ERROR] Clerk update failed: ${data.message}`);
+    //   }
+
+    //   console.log("[DEBUG] Clerk metadata updated successfully");
+    // } catch (error) {
+    //   console.error("[ERROR] Clerk metadata update failed:", error);
+    //   return NextResponse.json(
+    //     { message: "Failed to update Clerk metadata", error: error.message },
+    //     { status: 500 }
+    //   );
+    // }
+
+    // New way 4-6-2025
+    let tokenUpdated;
     try {
-      console.log("[DEBUG] Updating Clerk metadata...");
-      const response = await fetch(
-        `https://api.clerk.dev/v1/users/${user}/metadata`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            public_metadata: { token: token },
-          }),
-        }
-      );
+      console.log("[DEBUG] creating client");
+      const client = new StreamChat(apiKey, apiSecret); // Correct way to initialize the client
+      console.log("[DEBUG] client created successfully");
 
-      const data = await response.json();
-      console.log("[DEBUG] Clerk response in backend:", data);
-
-      if (!response.ok) {
-        throw new Error(`[ERROR] Clerk update failed: ${data.message}`);
+      console.log("[DEBUG] creating userToken");
+      const userToken = client.createToken(user); // Generate the user token
+      if (!userToken) {
+        console.error("[ERROR] Failed to create user token");
+        return NextResponse.json({
+          message: "Creating user token failed",
+          error: "User token could not be created",
+        });
       }
+      tokenUpdated = userToken;
+      console.log("[DEBUG] userToken created successfully");
+    } catch (error) {
+      console.error("[ERROR] creting token failed:", error);
+      return NextResponse.json(
+        { message: "Failed to user token", error: error.message },
+        { status: 500 }
+      );
+    }
 
-      console.log("[DEBUG] Clerk metadata updated successfully");
+    // Assuming you are using Clerk for user metadata management
+    try {
+      console.log("[DEBUG] updating metadata");
+      await clerkClient.users.updateUserMetadata(user, {
+        publicMetadata: { token: userToken },
+      });
+
+      const updatedUser = await clerkClient.users.getUser(user);
+      if (!updatedUser) {
+        return NextResponse.json({ message: "User not found" });
+      }
+      console.log(
+        "[DEBUG] Updated user metadata: ",
+        updatedUser.publicMetadata
+      );
     } catch (error) {
       console.error("[ERROR] Clerk metadata update failed:", error);
       return NextResponse.json(
@@ -147,6 +198,8 @@ export async function POST(request) {
         { status: 500 }
       );
     }
+
+    await client.upsertUser({ id: user });
 
     // Giving access this user to all chats
     try {
@@ -166,17 +219,24 @@ export async function POST(request) {
           name: capitalize(item),
           created_by_id: user,
         });
+        if (!newChannel) {
+          console.error("[ERROR]", error);
+          return NextResponse.json({
+            message: "Creating new channel is faild",
+            error: error.message,
+          });
+        }
         await newChannel.create();
         await newChannel.addMembers([user]);
       }
       console.log("[DEBUG] new Channel created");
 
-      return NextResponse.json(
-        { message: "Succefully done", token: token },
-        {
-          status: 201,
-        }
-      );
+      // return NextResponse.json(
+      //   { message: "Succefully done", token: token },
+      //   {
+      //     status: 201,
+      //   }
+      // );
     } catch (error) {
       console.error("[ERROR]", error);
       return NextResponse.json({
@@ -184,6 +244,10 @@ export async function POST(request) {
         error: error.message,
       });
     }
+    return NextResponse.json({
+      message: "User and token created successfully",
+      token: tokenUpdated,
+    });
   } catch (error) {
     console.error("[ERROR]", error); // ADD THIS
     return NextResponse.json({

@@ -26,7 +26,7 @@ function capitalize(slug) {
   return slug
     .trim()
     .split("-")
-    .filter(word => word.length > 0) // Remove empty words caused by double hyphens
+    .filter(word => word.length > 0) 
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
